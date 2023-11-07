@@ -16,7 +16,7 @@ namespace IntheDungeon
 
         public void GoNext(Dungeon dungeon)
         {
-
+            dungeon.OpenDoor();
         }
     }
 }
