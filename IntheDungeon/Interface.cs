@@ -21,7 +21,10 @@ namespace IntheDungeon
     {
         public void DropItem();
     }
-    internal class Interface
+    
+    public interface IsLockInOut
     {
+        public void IsLockIn();
+        public void IsLockOut();
     }
 }

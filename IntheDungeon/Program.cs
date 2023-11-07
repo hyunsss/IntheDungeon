@@ -7,9 +7,11 @@
             Player player = new Player();
             ItemBox box = new ItemBox();
             Dungeon dungeon = new Dungeon();
+            Door door = new Door();
+ 
 
             player.IsOpen(box);
-            player.GoNext(dungeon);
+            player.IsOpen(door);
 
 
 

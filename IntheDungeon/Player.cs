@@ -14,7 +14,7 @@ namespace IntheDungeon
             interactiveObject.IsOpen();
         }
 
-        public void GoNext(IGonext gonext)
+        public void GoNext(Dungeon dungeon)
         {
 
         }

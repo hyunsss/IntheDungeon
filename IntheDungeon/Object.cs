@@ -8,33 +8,72 @@ namespace IntheDungeon
 {
     public abstract class InteractiveObject
     {
+        protected bool IsLock;
         public virtual void IsOpen() { }
     }
 
-    public class ItemBox : InteractiveObject, IDropItem
+    public class ItemBox : InteractiveObject, IDropItem, IsLockInOut
     {
+        public ItemBox() { 
+            IsLock = true;
+        }
+
         public void DropItem()
         {
-            
+            Console.WriteLine("아이템을 드랍합니다");
+        }
+
+        public void IsLockIn()
+        {
+            if (IsLock) { Console.WriteLine("이미 잠겨있습니다."); }
+            else {
+                Console.WriteLine("상자를 잠굽니다.");
+                IsLock = true;
+            }
+        }
+
+        public void IsLockOut()
+        {
+            if (IsLock)
+            {
+                Console.WriteLine("상자가 잠겨있습니다. 잠금을 해제 하시겠습니까?");
+                string Answer = Console.ReadLine();
+                switch (Answer)
+                {
+                    case "yes":
+                        IsLock = false;
+                        IsOpen();
+                        break;
+                    case "no":
+                        Console.WriteLine("상자를 그냥 둡니다.");
+                        break;
+                }
+            }
         }
 
         public override void IsOpen()
         {
-            //열었을 때 드랍 아이템
-            DropItem();
-            Console.WriteLine("아이템을 드랍합니다");
+            if(!IsLock)
+            {
+                Console.WriteLine("상자를 열었습니다!");
+                //열었을 때 드랍 아이템
+                DropItem();
+            } else
+            {
+                IsLockOut();
+            }
+            
         }
     }
 
 
-    public class Door : InteractiveObject
+    public class Door : InteractiveObject, IsLockInOut
     {
         private bool Dooropen;
-        private bool IsLock;
-        public Map map;
+        public Dungeon dungeon;
         public Door()
         {
-            map = new Map();
+            dungeon = new Dungeon();
             IsLock = false;
             Dooropen = false;
         }
@@ -48,7 +87,7 @@ namespace IntheDungeon
                 switch(Answer)
                 {
                     case "yes":
-                        map.GoNext();
+                        dungeon.GoNext();
                         break;
                     case "no":
                         break;
@@ -57,11 +96,39 @@ namespace IntheDungeon
 
             } else if(IsLock)
             {
-                Console.WriteLine("문이 잠겨있습니다. 열 수 없습니다.");
+                IsLockOut();
             }
             
         }
 
+        public void IsLockIn()
+        {
+            if (IsLock) { Console.WriteLine("이미 잠겨있습니다."); }
+            else
+            {
+                Console.WriteLine("문을 잠굽니다.");
+                IsLock = true;
+            }
+        }
+
+        public void IsLockOut()
+        {
+            if (IsLock)
+            {
+                Console.WriteLine("문이 잠겨있습니다. 잠금을 해제 하시겠습니까?");
+                string Answer = Console.ReadLine();
+                switch (Answer)
+                {
+                    case "yes":
+                        IsLock = false;
+                        IsOpen();
+                        break;
+                    case "no":
+                        Console.WriteLine("문을 그냥 둡니다.");
+                        break;
+                }
+            }
+        }
     }
     internal class Object
     {
