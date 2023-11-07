@@ -75,7 +75,7 @@ namespace IntheDungeon
         public Dungeon dungeon;
         public Door()
         {
-
+            
             IsLock = false;
             Dooropen = false;
         }
@@ -89,7 +89,7 @@ namespace IntheDungeon
                 switch(Answer)
                 {
                     case "yes":
-                        this.dungeon.GoNext();
+                        dungeon.GoNext();
                         break;
                     case "no":
                         break;
