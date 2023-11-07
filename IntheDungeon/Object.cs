@@ -8,12 +8,13 @@ namespace IntheDungeon
 {
     public abstract class InteractiveObject
     {
-        protected bool IsLock;
+
         public virtual void IsOpen() { }
     }
 
     public class ItemBox : InteractiveObject, IDropItem, IsLockInOut
     {
+        private bool IsLock;
         public ItemBox() { 
             IsLock = true;
         }
@@ -69,6 +70,7 @@ namespace IntheDungeon
 
     public class Door : InteractiveObject, IsLockInOut
     {
+        private bool IsLock;
         private bool Dooropen;
         public Dungeon dungeon;
         public Door()
